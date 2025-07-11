@@ -13,9 +13,14 @@ interface ForecastDay {
 interface WeatherForecastProps {
   forecast: ForecastDay[];
   loading: boolean;
+  temperatureUnit?: 'celsius' | 'fahrenheit';
 }
 
-export const WeatherForecast: React.FC<WeatherForecastProps> = ({ forecast, loading }) => {
+export const WeatherForecast: React.FC<WeatherForecastProps> = ({ 
+  forecast, 
+  loading, 
+  temperatureUnit = 'celsius' 
+}) => {
   const getWeatherIcon = (condition: string) => {
     const iconClass = "h-6 w-6 sm:h-8 sm:w-8 text-white drop-shadow";
     
@@ -31,6 +36,10 @@ export const WeatherForecast: React.FC<WeatherForecastProps> = ({ forecast, load
       default:
         return <Sun className={iconClass} />;
     }
+  };
+
+  const getTemperatureUnit = () => {
+    return temperatureUnit === 'fahrenheit' ? '°F' : '°C';
   };
 
   if (loading) {
@@ -75,10 +84,10 @@ export const WeatherForecast: React.FC<WeatherForecastProps> = ({ forecast, load
             
             <div className="text-right ml-2 flex-shrink-0">
               <div className="font-bold text-white drop-shadow text-sm sm:text-base">
-                {day.high}°
+                {day.high}{getTemperatureUnit()}
               </div>
               <div className="text-xs sm:text-sm text-blue-200">
-                {day.low}°
+                {day.low}{getTemperatureUnit()}
               </div>
             </div>
           </div>

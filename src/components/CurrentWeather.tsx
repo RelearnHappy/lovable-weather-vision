@@ -10,6 +10,7 @@ interface CurrentWeatherData {
   humidity: number;
   windSpeed: number;
   feelsLike: number;
+  temperatureUnit?: 'celsius' | 'fahrenheit';
 }
 
 interface CurrentWeatherProps {
@@ -33,6 +34,10 @@ export const CurrentWeather: React.FC<CurrentWeatherProps> = ({ data, loading })
       default:
         return <Sun className={iconClass} />;
     }
+  };
+
+  const getTemperatureUnit = () => {
+    return data.temperatureUnit === 'fahrenheit' ? '°F' : '°C';
   };
 
   if (loading) {
@@ -65,13 +70,13 @@ export const CurrentWeather: React.FC<CurrentWeatherProps> = ({ data, loading })
         <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
           <div className="text-center order-2 sm:order-1">
             <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg mb-2">
-              {data.temperature}°C
+              {data.temperature}{getTemperatureUnit()}
             </div>
             <div className="text-lg sm:text-xl text-blue-100 drop-shadow">
               {data.condition}
             </div>
             <div className="text-base sm:text-lg text-blue-200 drop-shadow mt-1">
-              Feels like {data.feelsLike}°C
+              Feels like {data.feelsLike}{getTemperatureUnit()}
             </div>
           </div>
           <div className="order-1 sm:order-2">
@@ -95,7 +100,7 @@ export const CurrentWeather: React.FC<CurrentWeatherProps> = ({ data, loading })
           
           <div className="text-center p-3 sm:p-4 rounded-lg bg-white/10 backdrop-blur-sm touch-manipulation col-span-2 sm:col-span-1">
             <Thermometer className="h-6 w-6 sm:h-8 sm:w-8 text-white mx-auto mb-2 drop-shadow" />
-            <div className="text-base sm:text-lg font-semibold text-white">{data.feelsLike}°C</div>
+            <div className="text-base sm:text-lg font-semibold text-white">{data.feelsLike}{getTemperatureUnit()}</div>
             <div className="text-xs sm:text-sm text-blue-100">Feels Like</div>
           </div>
         </div>
