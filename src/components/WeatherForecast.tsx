@@ -17,7 +17,7 @@ interface WeatherForecastProps {
 
 export const WeatherForecast: React.FC<WeatherForecastProps> = ({ forecast, loading }) => {
   const getWeatherIcon = (condition: string) => {
-    const iconClass = "h-8 w-8 text-white drop-shadow";
+    const iconClass = "h-6 w-6 sm:h-8 sm:w-8 text-white drop-shadow";
     
     switch (condition.toLowerCase()) {
       case 'sunny':
@@ -36,12 +36,12 @@ export const WeatherForecast: React.FC<WeatherForecastProps> = ({ forecast, load
   if (loading) {
     return (
       <Card className="glass-effect border-white/20 shadow-xl animate-pulse">
-        <CardHeader>
+        <CardHeader className="pb-2">
           <div className="h-6 bg-white/20 rounded"></div>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-3 p-4 sm:p-6">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="h-16 bg-white/20 rounded"></div>
+            <div key={i} className="h-12 sm:h-16 bg-white/20 rounded"></div>
           ))}
         </CardContent>
       </Card>
@@ -50,30 +50,34 @@ export const WeatherForecast: React.FC<WeatherForecastProps> = ({ forecast, load
 
   return (
     <Card className="glass-effect border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 h-fit">
-      <CardHeader>
-        <CardTitle className="text-xl font-bold text-white drop-shadow text-center">
+      <CardHeader className="pb-2 px-4 sm:px-6">
+        <CardTitle className="text-lg sm:text-xl font-bold text-white drop-shadow text-center">
           5-Day Forecast
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3 p-6">
+      <CardContent className="space-y-2 sm:space-y-3 p-4 sm:p-6">
         {forecast.map((day, index) => (
           <div
             key={index}
-            className="flex items-center justify-between p-4 rounded-lg bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors duration-200"
+            className="flex items-center justify-between p-3 sm:p-4 rounded-lg bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors duration-200 touch-manipulation"
           >
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
               {getWeatherIcon(day.condition)}
-              <div>
-                <div className="font-medium text-white drop-shadow">{day.date}</div>
-                <div className="text-sm text-blue-100">{day.condition}</div>
+              <div className="min-w-0 flex-1">
+                <div className="font-medium text-white drop-shadow text-sm sm:text-base truncate">
+                  {day.date}
+                </div>
+                <div className="text-xs sm:text-sm text-blue-100 truncate">
+                  {day.condition}
+                </div>
               </div>
             </div>
             
-            <div className="text-right">
-              <div className="font-bold text-white drop-shadow">
+            <div className="text-right ml-2 flex-shrink-0">
+              <div className="font-bold text-white drop-shadow text-sm sm:text-base">
                 {day.high}°
               </div>
-              <div className="text-sm text-blue-200">
+              <div className="text-xs sm:text-sm text-blue-200">
                 {day.low}°
               </div>
             </div>

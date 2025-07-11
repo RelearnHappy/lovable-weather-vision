@@ -87,45 +87,45 @@ const WeatherApp = () => {
   }, []);
 
   return (
-    <div className="min-h-screen p-4 sm:p-6 lg:p-8">
-      <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl sm:text-5xl font-bold text-white drop-shadow-lg">
+    <div className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8">
+      <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
+        {/* Header - Optimized for mobile */}
+        <div className="text-center space-y-2 sm:space-y-4 px-2">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg">
             Weather Vision
           </h1>
-          <p className="text-lg text-blue-100 drop-shadow">
+          <p className="text-base sm:text-lg text-blue-100 drop-shadow px-4">
             Your gateway to accurate weather forecasting
           </p>
         </div>
 
-        {/* Search */}
-        <div className="flex justify-center">
+        {/* Search - Better mobile layout */}
+        <div className="flex justify-center px-2">
           <div className="w-full max-w-md">
             <SearchCity onSearch={handleCitySearch} loading={loading} />
           </div>
         </div>
 
-        {/* Weather Content */}
+        {/* Weather Content - Improved mobile stacking */}
         {weatherData && (
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Current Weather - Takes 2 columns on large screens */}
-            <div className="lg:col-span-2">
+          <div className="space-y-4 sm:space-y-6">
+            {/* Current Weather - Full width on mobile */}
+            <div className="w-full">
               <CurrentWeather data={weatherData.current} loading={loading} />
             </div>
             
-            {/* 5-Day Forecast */}
-            <div className="lg:col-span-1">
+            {/* 5-Day Forecast - Full width on mobile, side by side on larger screens */}
+            <div className="w-full lg:max-w-md lg:mx-auto">
               <WeatherForecast forecast={weatherData.forecast} loading={loading} />
             </div>
           </div>
         )}
 
-        {/* Loading State */}
+        {/* Loading State - Better mobile spacing */}
         {loading && !weatherData && (
-          <div className="text-center text-white">
+          <div className="text-center text-white py-8">
             <div className="animate-spin h-8 w-8 border-2 border-white border-t-transparent rounded-full mx-auto mb-4"></div>
-            <p>Getting weather data...</p>
+            <p className="text-lg">Getting weather data...</p>
           </div>
         )}
       </div>
